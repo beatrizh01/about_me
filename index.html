@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0d12;
-    --surface:#12151c;
-    --surface-2:#171b24;
-    --line:#232833;
-    --text:#e8eaee;
-    --text-dim:#8b93a3;
-    --accent:#d4a24e;      /* brass/gold */
-    --accent-2:#2dd4bf;    /* muted teal, hover states */
+    --bg:#120505;
+    --surface:#1e0a0a;
+    --surface-2:#280d0d;
+    --line:#3d1414;
+    --text:#f5e9e9;
+    --text-dim:#b89494;
+    --accent:#e63946;      /* rojo vivo */
+    --accent-2:#ff6b6b;    /* coral, hover states */
     --font-display:'Space Grotesk', sans-serif;
     --font-body:'Inter', sans-serif;
   }
@@ -31,7 +31,7 @@
     line-height:1.6;
   }
 
-  /* subtle circuit-grid background texture */
+  /* subtle grid texture */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -68,7 +68,7 @@
     position:sticky; top:0; z-index:10;
     display:flex; justify-content:center; gap:2.5rem;
     padding:1.25rem 1.5rem;
-    background:rgba(11,13,18,0.85);
+    background:rgba(18,5,5,0.85);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
@@ -85,9 +85,12 @@
   /* ---------- HERO ---------- */
   .hero{
     min-height:80vh;
-    display:flex; flex-direction:column; justify-content:center;
+    display:flex;
+    align-items:center;
+    gap:3.5rem;
     text-align:left;
   }
+  .hero-text{ flex:1; min-width:280px; }
   .hero h1{
     font-size:clamp(2.5rem, 6vw, 4.5rem);
     line-height:1.05;
@@ -100,6 +103,60 @@
     font-size:1.1rem;
     margin-bottom:2rem;
   }
+
+  /* -- circular photo frame -- */
+  .hero-visual{
+    position:relative;
+    width:260px;
+    height:260px;
+    flex-shrink:0;
+  }
+  .avatar-glow{
+    position:absolute; inset:-50px;
+    background:radial-gradient(circle, rgba(230,57,70,0.4), transparent 70%);
+    filter:blur(24px);
+    z-index:0;
+  }
+  .avatar-ring{
+    position:absolute; inset:-18px;
+    border:1px dashed var(--accent-2);
+    border-radius:50%;
+    opacity:0.6;
+    animation:spin 24s linear infinite;
+    z-index:1;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .avatar-frame{
+    position:relative; z-index:2;
+    width:100%; height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid var(--accent);
+    background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 40px rgba(230,57,70,0.35);
+  }
+  .avatar-frame img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .avatar-frame .avatar-placeholder{
+    display:none;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.8rem;
+    padding:1rem;
+    font-family:var(--font-display);
+  }
+  .avatar-frame.img-missing img{ display:none; }
+  .avatar-frame.img-missing .avatar-placeholder{ display:block; }
+
+  @media (max-width:768px){
+    .hero{ flex-direction:column-reverse; text-align:center; gap:2.5rem; }
+    .hero p{ margin-left:auto; margin-right:auto; }
+  }
+
   .socials{ display:flex; gap:1.25rem; }
   .socials a{
     font-family:var(--font-display);
@@ -115,7 +172,7 @@
     color:var(--accent-2);
   }
 
-  /* ---------- EXPERIENCE (timeline, from Wassim's structure) ---------- */
+  /* ---------- EXPERIENCE (timeline) ---------- */
   .timeline{ position:relative; padding-left:2rem; }
   .timeline::before{
     content:"";
@@ -150,7 +207,7 @@
     color:var(--text-dim);
   }
 
-  /* ---------- HEX GALLERY (Mori-Dark inspired) ---------- */
+  /* ---------- HEX GALLERY ---------- */
   .hex-grid{
     display:flex; flex-wrap:wrap;
     gap:0;
@@ -203,7 +260,7 @@
     .hex-inner{ padding:1.2rem 0.9rem; }
   }
 
-  /* ---------- HEX with thumbnail image (for Animación 3D) ---------- */
+  /* ---------- HEX with thumbnail image (Animación 3D) ---------- */
   .hex.hex-media{
     background-size:cover;
     background-position:center;
@@ -245,13 +302,24 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="eyebrow">Portafolio</div>
-  <h1>Hola, soy <span>Tu Nombre</span>.<br>Desarrollador de software.</h1>
-  <p>Reemplaza este texto con una descripción corta de quién eres, en qué te especializas y qué te apasiona construir.</p>
-  <div class="socials">
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Correo</a>
+  <div class="hero-visual">
+    <div class="avatar-glow"></div>
+    <div class="avatar-ring"></div>
+    <div class="avatar-frame" id="avatarFrame">
+      <img src="assets/tu-foto.jpg" alt="Tu foto"
+           onerror="this.style.display='none'; document.getElementById('avatarFrame').classList.add('img-missing')">
+      <div class="avatar-placeholder">Coloca aquí<br>tu-foto.jpg</div>
+    </div>
+  </div>
+  <div class="hero-text">
+    <div class="eyebrow">Portafolio</div>
+    <h1>Hola, soy <span>Tu Nombre</span>.<br>Desarrollador de software.</h1>
+    <p>Reemplaza este texto con una descripción corta de quién eres, en qué te especializas y qué te apasiona construir.</p>
+    <div class="socials">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Correo</a>
+    </div>
   </div>
 </section>
 
@@ -299,13 +367,13 @@
   <div class="eyebrow">Reel</div>
   <h2>Animación 3D</h2>
   <div class="hex-grid">
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #3a2f1f, #7a5a2a);">
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #3a1010, #7a2020);">
       <div class="hex-inner"><div class="hex-icon">Pieza 01</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
     </div>
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #1f2f3a, #2a577a);">
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #2a0d0d, #6a1a1a);">
       <div class="hex-inner"><div class="hex-icon">Pieza 02</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
     </div>
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #2f1f3a, #5a2a7a);">
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #331414, #8a2a2a);">
       <div class="hex-inner"><div class="hex-icon">Pieza 03</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
     </div>
   </div>
