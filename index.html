@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tu Nombre | Portafolio</title>
+<title>Your Name | Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -14,7 +14,7 @@
     --line:#3d1414;
     --text:#f5e9e9;
     --text-dim:#b89494;
-    --accent:#e63946;      /* rojo vivo */
+    --accent:#e63946;      /* bright red */
     --accent-2:#ff6b6b;    /* coral, hover states */
     --font-display:'Space Grotesk', sans-serif;
     --font-body:'Inter', sans-serif;
@@ -66,11 +66,14 @@
   /* ---------- NAV ---------- */
   nav{
     position:sticky; top:0; z-index:10;
-    display:flex; justify-content:center; gap:2.5rem;
-    padding:1.25rem 1.5rem;
-    background:rgba(18,5,5,0.85);
+    display:flex; flex-direction:column;
+    background:rgba(18,5,5,0.9);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
+  }
+  .nav-links-row{
+    display:flex; justify-content:center; gap:2.5rem;
+    padding:1.15rem 1.5rem;
   }
   nav a{
     font-family:var(--font-display);
@@ -81,6 +84,46 @@
     transition:color 0.2s ease;
   }
   nav a:hover{ color:var(--accent); }
+
+  /* mini profile row: collapsed until you scroll past the hero */
+  .nav-profile-row{
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    display:flex; justify-content:center; align-items:center; gap:0.85rem;
+    transition:max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+    padding:0 1.5rem;
+    border-top:1px solid transparent;
+  }
+  nav.scrolled .nav-profile-row{
+    max-height:80px;
+    opacity:1;
+    padding:0.85rem 1.5rem;
+    border-top-color:var(--line);
+  }
+  .nav-profile-row img{
+    width:46px; height:46px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--accent);
+    display:block;
+  }
+  .nav-profile-row .nav-avatar-fallback{
+    width:46px; height:46px;
+    border-radius:50%;
+    border:2px solid var(--accent);
+    background:var(--surface);
+    display:none;
+  }
+  .nav-profile-row.img-missing img{ display:none; }
+  .nav-profile-row.img-missing .nav-avatar-fallback{ display:block; }
+  .nav-profile-row span{
+    font-family:var(--font-display);
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--text);
+    white-space:nowrap;
+  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -260,7 +303,7 @@
     .hex-inner{ padding:1.2rem 0.9rem; }
   }
 
-  /* ---------- HEX with thumbnail image (Animación 3D) ---------- */
+  /* ---------- HEX with thumbnail image (3D Animation) ---------- */
   .hex.hex-media{
     background-size:cover;
     background-position:center;
@@ -293,11 +336,19 @@
 </head>
 <body>
 
-<nav>
-  <a href="#experiencia">Experiencia</a>
-  <a href="#proyectos">Proyectos</a>
-  <a href="#animacion3d">Animación 3D</a>
-  <a href="#sistemas">Sistemas</a>
+<nav id="mainNav">
+  <div class="nav-links-row">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#animation3d">3D Animation</a>
+    <a href="#systems">Systems</a>
+  </div>
+  <div class="nav-profile-row" id="navProfile">
+    <img src="assets/your-photo.jpg" alt="Your photo"
+         onerror="this.style.display='none'; document.getElementById('navProfile').classList.add('img-missing')">
+    <div class="nav-avatar-fallback"></div>
+    <span>Your Name</span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -306,95 +357,105 @@
     <div class="avatar-glow"></div>
     <div class="avatar-ring"></div>
     <div class="avatar-frame" id="avatarFrame">
-      <img src="assets/tu-foto.jpg" alt="Tu foto"
+      <img src="assets/your-photo.jpg" alt="Your photo"
            onerror="this.style.display='none'; document.getElementById('avatarFrame').classList.add('img-missing')">
-      <div class="avatar-placeholder">Coloca aquí<br>tu-foto.jpg</div>
+      <div class="avatar-placeholder">Place your<br>your-photo.jpg<br>here</div>
     </div>
   </div>
   <div class="hero-text">
-    <div class="eyebrow">Portafolio</div>
-    <h1>Hola, soy <span>Tu Nombre</span>.<br>Desarrollador de software.</h1>
-    <p>Reemplaza este texto con una descripción corta de quién eres, en qué te especializas y qué te apasiona construir.</p>
+    <div class="eyebrow">Portfolio</div>
+    <h1>Hi, I'm <span>Your Name</span>.<br>Software Developer.</h1>
+    <p>Replace this text with a short description of who you are, what you specialize in, and what you're passionate about building.</p>
     <div class="socials">
       <a href="#">GitHub</a>
       <a href="#">LinkedIn</a>
-      <a href="#">Correo</a>
+      <a href="#">Email</a>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCIA -->
-<section id="experiencia">
-  <div class="eyebrow">Trayectoria</div>
-  <h2 style="margin-bottom:2.5rem;">Experiencia</h2>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="eyebrow">Journey</div>
+  <h2 style="margin-bottom:2.5rem;">Experience</h2>
   <div class="timeline">
     <div class="timeline-item">
-      <div class="timeline-date">Ene 2026 – Presente</div>
-      <h3>Puesto o Rol</h3>
-      <div class="org">Empresa · Ciudad</div>
-      <div class="tags"><span>Habilidad 1</span><span>Habilidad 2</span><span>Habilidad 3</span></div>
+      <div class="timeline-date">Jan 2026 – Present</div>
+      <h3>Role or Position</h3>
+      <div class="org">Company · City</div>
+      <div class="tags"><span>Skill 1</span><span>Skill 2</span><span>Skill 3</span></div>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2024 – 2025</div>
-      <h3>Otro puesto o proyecto</h3>
-      <div class="org">Institución · Ciudad</div>
-      <div class="tags"><span>Habilidad 1</span><span>Habilidad 2</span></div>
+      <h3>Another Role or Project</h3>
+      <div class="org">Institution · City</div>
+      <div class="tags"><span>Skill 1</span><span>Skill 2</span></div>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2021 – 2024</div>
-      <h3>Formación académica</h3>
-      <div class="org">Universidad / Colegio</div>
-      <div class="tags"><span>Área de estudio</span></div>
+      <h3>Education</h3>
+      <div class="org">University / College</div>
+      <div class="tags"><span>Field of study</span></div>
     </div>
   </div>
 </section>
 
-<!-- PROYECTOS -->
-<section id="proyectos">
-  <div class="eyebrow">Trabajo</div>
-  <h2>Proyectos</h2>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow">Work</div>
+  <h2>Projects</h2>
   <div class="hex-grid">
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
   </div>
 </section>
 
-<!-- ANIMACIÓN 3D -->
-<section id="animacion3d">
+<!-- 3D ANIMATION -->
+<section id="animation3d">
   <div class="eyebrow">Reel</div>
-  <h2>Animación 3D</h2>
+  <h2>3D Animation</h2>
   <div class="hex-grid">
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #3a1010, #7a2020);">
-      <div class="hex-inner"><div class="hex-icon">Pieza 01</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 01</div><h4>Piece Name</h4><p>Software / technique used</p></div>
     </div>
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #2a0d0d, #6a1a1a);">
-      <div class="hex-inner"><div class="hex-icon">Pieza 02</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 02</div><h4>Piece Name</h4><p>Software / technique used</p></div>
     </div>
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #331414, #8a2a2a);">
-      <div class="hex-inner"><div class="hex-icon">Pieza 03</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 03</div><h4>Piece Name</h4><p>Software / technique used</p></div>
     </div>
   </div>
-  <p class="placeholder-note">Reemplaza el gradiente de cada <code>.hex-media</code> por <code>url('tu-imagen.jpg')</code> en el atributo <code>style</code> para mostrar el thumbnail real de cada render.</p>
+  <p class="placeholder-note">Replace each <code>.hex-media</code> gradient with <code>url('your-image.jpg')</code> in the <code>style</code> attribute to show the real thumbnail for each render.</p>
 </section>
 
-<!-- SISTEMAS -->
-<section id="sistemas">
-  <div class="eyebrow">Ingeniería</div>
-  <h2>Sistemas</h2>
+<!-- SYSTEMS -->
+<section id="systems">
+  <div class="eyebrow">Engineering</div>
+  <h2>Systems</h2>
   <div class="hex-grid">
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
   </div>
 </section>
 
 <footer>
-  © 2026 Tu Nombre — hecho a mano combinando dos plantillas open-source.
+  © 2026 Your Name — hand-built by combining two open-source templates.
 </footer>
 
+<script>
+  const mainNav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 220) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+  });
+</script>
 </body>
 </html>
