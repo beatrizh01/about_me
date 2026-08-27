@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Nombre | Portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0d12;
+    --surface:#12151c;
+    --surface-2:#171b24;
+    --line:#232833;
+    --text:#e8eaee;
+    --text-dim:#8b93a3;
+    --accent:#d4a24e;      /* brass/gold */
+    --accent-2:#2dd4bf;    /* muted teal, hover states */
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+  }
+
+  /* subtle circuit-grid background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:0.06;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  h1,h2,h3{ font-family:var(--font-display); letter-spacing:-0.01em; }
+
+  section{ position:relative; z-index:1; padding:6rem 1.5rem; max-width:1100px; margin:0 auto; }
+
+  .eyebrow{
+    font-family:var(--font-display);
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:0.75rem;
+    display:flex; align-items:center; gap:0.6rem;
+  }
+  .eyebrow::before{
+    content:""; width:24px; height:1px; background:var(--accent);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:10;
+    display:flex; justify-content:center; gap:2.5rem;
+    padding:1.25rem 1.5rem;
+    background:rgba(11,13,18,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav a{
+    font-family:var(--font-display);
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    transition:color 0.2s ease;
+  }
+  nav a:hover{ color:var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:80vh;
+    display:flex; flex-direction:column; justify-content:center;
+    text-align:left;
+  }
+  .hero h1{
+    font-size:clamp(2.5rem, 6vw, 4.5rem);
+    line-height:1.05;
+    margin-bottom:1.25rem;
+  }
+  .hero h1 span{ color:var(--accent); }
+  .hero p{
+    max-width:560px;
+    color:var(--text-dim);
+    font-size:1.1rem;
+    margin-bottom:2rem;
+  }
+  .socials{ display:flex; gap:1.25rem; }
+  .socials a{
+    font-family:var(--font-display);
+    font-size:0.85rem;
+    padding:0.5rem 1rem;
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--text-dim);
+    transition:all 0.2s ease;
+  }
+  .socials a:hover{
+    border-color:var(--accent-2);
+    color:var(--accent-2);
+  }
+
+  /* ---------- EXPERIENCE (timeline, from Wassim's structure) ---------- */
+  .timeline{ position:relative; padding-left:2rem; }
+  .timeline::before{
+    content:"";
+    position:absolute; left:0; top:0.4rem; bottom:0.4rem;
+    width:1px; background:var(--line);
+  }
+  .timeline-item{ position:relative; padding-bottom:2.75rem; }
+  .timeline-item:last-child{ padding-bottom:0; }
+  .timeline-item::before{
+    content:"";
+    position:absolute; left:-2rem; top:0.35rem;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+  }
+  .timeline-date{
+    font-family:var(--font-display);
+    font-size:0.75rem;
+    color:var(--accent);
+    letter-spacing:0.05em;
+    margin-bottom:0.35rem;
+  }
+  .timeline-item h3{ font-size:1.15rem; margin-bottom:0.2rem; }
+  .timeline-item .org{ color:var(--text-dim); font-size:0.9rem; margin-bottom:0.6rem; }
+  .tags{ display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .tags span{
+    font-size:0.72rem;
+    padding:0.2rem 0.55rem;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--text-dim);
+  }
+
+  /* ---------- HEX GALLERY (Mori-Dark inspired) ---------- */
+  .hex-grid{
+    display:flex; flex-wrap:wrap;
+    gap:0;
+    margin-top:2.5rem;
+    justify-content:center;
+  }
+  .hex{
+    position:relative;
+    width:220px;
+    height:254px;
+    margin:-21px 6px;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:transform 0.25s ease, background 0.25s ease;
+  }
+  .hex:hover{
+    transform:scale(1.05);
+    z-index:2;
+    background:var(--surface-2);
+  }
+  .hex-inner{
+    text-align:center;
+    padding:2.2rem 1.6rem;
+    transition:opacity 0.25s ease;
+  }
+  .hex-inner .hex-icon{
+    font-family:var(--font-display);
+    font-size:0.7rem;
+    color:var(--accent);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:0.6rem;
+  }
+  .hex-inner h4{ font-size:1rem; margin-bottom:0.5rem; }
+  .hex-inner p{ font-size:0.78rem; color:var(--text-dim); }
+  .hex::after{
+    content:"";
+    position:absolute; inset:0;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border:1px solid var(--line);
+    pointer-events:none;
+    transition:border-color 0.25s ease;
+  }
+  .hex:hover::after{ border-color:var(--accent-2); }
+
+  @media (max-width:640px){
+    .hex{ width:150px; height:173px; margin:-14px 4px; }
+    .hex-inner{ padding:1.2rem 0.9rem; }
+  }
+
+  /* ---------- HEX with thumbnail image (for Animación 3D) ---------- */
+  .hex.hex-media{
+    background-size:cover;
+    background-position:center;
+    align-items:flex-end;
+  }
+  .hex.hex-media .hex-inner{
+    width:100%;
+    padding:1.4rem 1.2rem 2.2rem;
+    text-align:left;
+  }
+  .hex.hex-media .hex-inner .hex-icon{ color:var(--accent-2); }
+  .hex.hex-media .hex-inner h4{ color:#fff; }
+  .hex.hex-media .hex-inner p{ color:rgba(255,255,255,0.75); }
+  .hex.hex-media:hover{ background-size:110%; }
+  .placeholder-note{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:0.8rem;
+    margin-top:1.25rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:3rem 1.5rem;
+    color:var(--text-dim);
+    font-size:0.85rem;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#experiencia">Experiencia</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#animacion3d">Animación 3D</a>
+  <a href="#sistemas">Sistemas</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Portafolio</div>
+  <h1>Hola, soy <span>Tu Nombre</span>.<br>Desarrollador de software.</h1>
+  <p>Reemplaza este texto con una descripción corta de quién eres, en qué te especializas y qué te apasiona construir.</p>
+  <div class="socials">
+    <a href="#">GitHub</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Correo</a>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div class="eyebrow">Trayectoria</div>
+  <h2 style="margin-bottom:2.5rem;">Experiencia</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Ene 2026 – Presente</div>
+      <h3>Puesto o Rol</h3>
+      <div class="org">Empresa · Ciudad</div>
+      <div class="tags"><span>Habilidad 1</span><span>Habilidad 2</span><span>Habilidad 3</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2024 – 2025</div>
+      <h3>Otro puesto o proyecto</h3>
+      <div class="org">Institución · Ciudad</div>
+      <div class="tags"><span>Habilidad 1</span><span>Habilidad 2</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2021 – 2024</div>
+      <h3>Formación académica</h3>
+      <div class="org">Universidad / Colegio</div>
+      <div class="tags"><span>Área de estudio</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="eyebrow">Trabajo</div>
+  <h2>Proyectos</h2>
+  <div class="hex-grid">
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Proyecto</div><h4>Nombre del Proyecto</h4><p>Stack / herramientas usadas</p></div></div>
+  </div>
+</section>
+
+<!-- ANIMACIÓN 3D -->
+<section id="animacion3d">
+  <div class="eyebrow">Reel</div>
+  <h2>Animación 3D</h2>
+  <div class="hex-grid">
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #3a2f1f, #7a5a2a);">
+      <div class="hex-inner"><div class="hex-icon">Pieza 01</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+    </div>
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #1f2f3a, #2a577a);">
+      <div class="hex-inner"><div class="hex-icon">Pieza 02</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+    </div>
+    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(11,13,18,0.92), rgba(11,13,18,0.2) 55%, transparent), linear-gradient(135deg, #2f1f3a, #5a2a7a);">
+      <div class="hex-inner"><div class="hex-icon">Pieza 03</div><h4>Nombre de la Pieza</h4><p>Software / técnica usada</p></div>
+    </div>
+  </div>
+  <p class="placeholder-note">Reemplaza el gradiente de cada <code>.hex-media</code> por <code>url('tu-imagen.jpg')</code> en el atributo <code>style</code> para mostrar el thumbnail real de cada render.</p>
+</section>
+
+<!-- SISTEMAS -->
+<section id="sistemas">
+  <div class="eyebrow">Ingeniería</div>
+  <h2>Sistemas</h2>
+  <div class="hex-grid">
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Sistema</div><h4>Nombre del Sistema</h4><p>Lenguaje / motor / técnica</p></div></div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Tu Nombre — hecho a mano combinando dos plantillas open-source.
+</footer>
+
+</body>
+</html>
