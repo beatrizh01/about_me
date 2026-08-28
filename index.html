@@ -275,71 +275,65 @@
 
   /* ---------- HEX GALLERY ---------- */
   .hex-grid{
-    display:flex; flex-wrap:wrap;
-    gap:0;
-    margin-top:2.5rem;
-    justify-content:center;
+    display:flex; flex-direction:column; align-items:center;
+    margin:2.5rem auto 0;
   }
+  .hex-row{
+    display:flex; justify-content:center;
+  }
+  .hex-row + .hex-row{ margin-top:-72px; }
   .hex{
     position:relative;
     width:250px;
     height:289px;
-    margin:-27px 2px;
     clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background:var(--surface);
-    display:flex; align-items:center; justify-content:center;
+    background:var(--c-yellow);
+    padding:2px;
     cursor:pointer;
-    transition:transform 0.25s ease, background 0.25s ease;
+    transition:transform 0.25s ease;
   }
   .hex:hover{
     transform:scale(1.05);
     z-index:2;
-    background:var(--surface-2);
   }
+  .hex-content{
+    width:100%; height:100%;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--surface);
+    background-size:cover;
+    background-position:center;
+    display:flex; align-items:center; justify-content:center;
+    transition:background-color 0.25s ease;
+  }
+  .hex:hover .hex-content{ background-color:var(--surface-2); }
   .hex-inner{
     text-align:center;
-    padding:2.2rem 1.6rem;
+    padding:0 1.5rem;
+    max-height:135px;
+    overflow:hidden;
     transition:opacity 0.25s ease;
   }
   .hex-inner .hex-icon{
     font-family:var(--font-display);
-    font-size:0.7rem;
+    font-size:0.68rem;
     color:var(--accent-local, var(--accent));
     letter-spacing:0.1em;
     text-transform:uppercase;
-    margin-bottom:0.6rem;
+    margin-bottom:0.4rem;
+    text-shadow:0 1px 4px rgba(0,0,0,0.8);
   }
-  .hex-inner h4{ font-size:1rem; margin-bottom:0.5rem; }
-  .hex-inner p{ font-size:0.78rem; color:var(--text-dim); }
-  .hex::after{
-    content:"";
-    position:absolute; inset:0;
-    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    border:1px solid var(--line);
-    pointer-events:none;
-    transition:border-color 0.25s ease;
-  }
-  .hex:hover::after{ border-color:var(--accent-2); }
+  .hex-inner h4{ font-size:0.95rem; margin-bottom:0.3rem; line-height:1.25; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
+  .hex-inner p{ font-size:0.72rem; line-height:1.35; color:var(--text-dim); text-shadow:0 1px 4px rgba(0,0,0,0.8); }
 
   @media (max-width:640px){
-    .hex{ width:168px; height:194px; margin:-17px 2px; }
-    .hex-inner{ padding:1.2rem 0.9rem; }
+    .hex{ width:168px; height:194px; }
+    .hex-row + .hex-row{ margin-top:-49px; }
+    .hex-inner{ padding:0 0.9rem; max-height:90px; }
+    .hex-inner .hex-icon{ font-size:0.6rem; margin-bottom:0.25rem; }
+    .hex-inner h4{ font-size:0.8rem; }
+    .hex-inner p{ font-size:0.62rem; }
   }
 
-  .hex.hex-media{
-    background-size:cover;
-    background-position:center;
-    align-items:flex-end;
-  }
-  .hex.hex-media .hex-inner{
-    width:100%;
-    padding:1.4rem 1.2rem 2.2rem;
-    text-align:left;
-  }
-  .hex.hex-media .hex-inner .hex-icon{ color:var(--accent-2); }
-  .hex.hex-media .hex-inner h4{ color:#fff; }
-  .hex.hex-media .hex-inner p{ color:rgba(255,255,255,0.75); }
-  .hex.hex-media:hover{ background-size:110%; }
   .placeholder-note{
     text-align:center;
     color:var(--text-dim);
@@ -381,7 +375,6 @@
   <div class="nav-links-row">
     <a href="#experience">Experience</a>
     <a href="#work">Work</a>
-    <a href="#animation3d">3D Animation</a>
     <a href="#education">Education</a>
   </div>
   <div class="nav-profile-row" id="navProfile">
@@ -413,7 +406,6 @@
     </div>
   </div>
   <div class="hero-text">
-    <div class="eyebrow">Portfolio</div>
     <h1>Hi, I'm <span>Béatriz</span>. QA Expert, 3D Animator &amp; Game Developer.</h1>
     <p>I've spent years learning to see the small, hidden things: the bug behind the crash, the flaw behind the flow. Now I build worlds instead: crafting gameplay in Unity and Unreal, and breathing life into characters in Maya, one frame at a time.</p>
     <div class="socials">
@@ -423,11 +415,6 @@
     </div>
   </div>
 </section>
-
-
-
-
-
 
 <!-- EXPERIENCE -->
 <section id="experience" style="--accent-local:var(--c-blue);">
@@ -468,37 +455,31 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- PROJECTS & REELS -->
 <section id="work" style="--accent-local:var(--c-yellow);">
-  <div class="eyebrow">Portfolio</div>
-  <h2>Work</h2>
+  <div class="eyebrow">Selected Work</div>
+  <h2>Projects &amp; Reels</h2>
   <div class="hex-grid">
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
-    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
-    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
-    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-  </div>
-  <p class="placeholder-note">Swap these placeholders for your real projects and games once they're ready.</p>
-</section>
-
-<!-- 3D ANIMATION -->
-<section id="animation3d" style="--accent-local:var(--accent-2);">
-  <div class="eyebrow">Reel</div>
-  <h2>3D Animation</h2>
-  <div class="hex-grid">
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #3a1010, #7a2020);">
-      <div class="hex-inner"><div class="hex-icon">Piece 01</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
+    <div class="hex-row">
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
     </div>
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #2a0d0d, #6a1a1a);">
-      <div class="hex-inner"><div class="hex-icon">Piece 02</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
+    <div class="hex-row">
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
     </div>
-    <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #331414, #8a2a2a);">
-      <div class="hex-inner"><div class="hex-icon">Piece 03</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
+    <div class="hex-row">
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+    </div>
+    <div class="hex-row">
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
     </div>
   </div>
-  <p class="placeholder-note">Replace each <code>.hex-media</code> gradient with <code>url('assets/your-render.jpg')</code> to show the real thumbnail for each piece.</p>
+  <p class="placeholder-note">Swap these placeholders for your real projects and 3D pieces. To show an image, add <code>style="background-image:url('assets/your-image.jpg')"</code> to the <code>.hex-content</code> div — it will center and fill the hexagon automatically.</p>
 </section>
 
 <!-- EDUCATION -->
