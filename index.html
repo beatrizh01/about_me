@@ -281,7 +281,6 @@
   .hex-row{
     display:flex; justify-content:center;
   }
-  .hex-row + .hex-row{ margin-top:-72px; }
   .hex{
     position:relative;
     width:250px;
@@ -327,12 +326,39 @@
 
   @media (max-width:640px){
     .hex{ width:168px; height:194px; }
-    .hex-row + .hex-row{ margin-top:-49px; }
     .hex-inner{ padding:0 0.9rem; max-height:90px; }
     .hex-inner .hex-icon{ font-size:0.6rem; margin-bottom:0.25rem; }
     .hex-inner h4{ font-size:0.8rem; }
     .hex-inner p{ font-size:0.62rem; }
   }
+
+  /* ---------- WORK FILTER BUTTONS ---------- */
+  .filter-bar{
+    display:flex; gap:0.75rem; flex-wrap:wrap;
+    justify-content:center;
+    margin:1.5rem 0 2rem;
+  }
+  .filter-btn{
+    font-family:var(--font-display);
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+    padding:0.4rem 0.2rem;
+    border:none;
+    background:transparent;
+    color:var(--c-yellow);
+    cursor:pointer;
+    transition:opacity 0.2s ease;
+  }
+  .filter-btn:hover{ opacity:0.75; }
+  .filter-btn.active{
+    background:transparent;
+    border-color:transparent;
+    color:#fff;
+    text-decoration:underline;
+    text-decoration-color:#fff;
+    text-underline-offset:5px;
+  }
+  .filter-btn.active:hover{ background:transparent; }
 
   .placeholder-note{
     text-align:center;
@@ -459,24 +485,30 @@
 <section id="work" style="--accent-local:var(--c-yellow);">
   <div class="eyebrow">Selected Work</div>
   <h2>Projects &amp; Reels</h2>
-  <div class="hex-grid">
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="filterWork('all', this)">All</button>
+    <button class="filter-btn" data-filter="game" onclick="filterWork('game', this)">Games</button>
+    <button class="filter-btn" data-filter="project" onclick="filterWork('project', this)">Projects</button>
+    <button class="filter-btn" data-filter="reel" onclick="filterWork('reel', this)">Reels</button>
+  </div>
+  <div class="hex-grid" id="workGrid">
     <div class="hex-row">
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex" data-category="project"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex" data-category="project"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex" data-category="game"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div></div>
     </div>
     <div class="hex-row">
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div></div>
+      <div class="hex" data-category="game"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div></div>
+      <div class="hex" data-category="game"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div></div>
     </div>
     <div class="hex-row">
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex" data-category="reel"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex" data-category="reel"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex" data-category="reel"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
     </div>
     <div class="hex-row">
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
-      <div class="hex"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex" data-category="reel"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
+      <div class="hex" data-category="reel"><div class="hex-content"><div class="hex-inner"><div class="hex-icon">Reel</div><h4>Piece Name</h4><p>Maya / technique used</p></div></div></div>
     </div>
   </div>
 </section>
@@ -532,6 +564,32 @@
       mainNav.classList.remove('scrolled');
     }
   });
+
+  function applyRowSpacing() {
+    const overlap = window.innerWidth <= 640 ? -49 : -72;
+    const visibleRows = Array.from(document.querySelectorAll('#workGrid .hex-row'))
+      .filter(row => row.style.display !== 'none');
+    visibleRows.forEach((row, i) => {
+      row.style.marginTop = i === 0 ? '0' : overlap + 'px';
+    });
+  }
+
+  function filterWork(category, btn) {
+    document.querySelectorAll('#workGrid .hex').forEach(hex => {
+      const match = category === 'all' || hex.getAttribute('data-category') === category;
+      hex.style.display = match ? '' : 'none';
+    });
+    document.querySelectorAll('#workGrid .hex-row').forEach(row => {
+      const anyVisible = Array.from(row.querySelectorAll('.hex')).some(h => h.style.display !== 'none');
+      row.style.display = anyVisible ? '' : 'none';
+    });
+    applyRowSpacing();
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  window.addEventListener('resize', applyRowSpacing);
+  applyRowSpacing();
 </script>
 </body>
 </html>
