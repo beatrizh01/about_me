@@ -131,7 +131,9 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    min-height:80vh;
+    min-height:auto;
+    padding-top:3rem;
+    padding-bottom:4rem;
     display:flex;
     align-items:center;
     gap:3.5rem;
@@ -280,9 +282,9 @@
   }
   .hex{
     position:relative;
-    width:220px;
-    height:254px;
-    margin:-21px 6px;
+    width:250px;
+    height:289px;
+    margin:-27px 2px;
     clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     background:var(--surface);
     display:flex; align-items:center; justify-content:center;
@@ -320,7 +322,7 @@
   .hex:hover::after{ border-color:var(--accent-2); }
 
   @media (max-width:640px){
-    .hex{ width:150px; height:173px; margin:-14px 4px; }
+    .hex{ width:168px; height:194px; margin:-17px 2px; }
     .hex-inner{ padding:1.2rem 0.9rem; }
   }
 
@@ -378,9 +380,8 @@
 <nav id="mainNav">
   <div class="nav-links-row">
     <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
+    <a href="#work">Work</a>
     <a href="#animation3d">3D Animation</a>
-    <a href="#games">Games</a>
     <a href="#education">Education</a>
   </div>
   <div class="nav-profile-row" id="navProfile">
@@ -463,15 +464,18 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" style="--accent-local:var(--c-yellow);">
-  <div class="eyebrow">Work</div>
-  <h2>Projects</h2>
+<section id="work" style="--accent-local:var(--c-yellow);">
+  <div class="eyebrow">Portfolio</div>
+  <h2>Work</h2>
   <div class="hex-grid">
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
+    <div class="hex" style="--accent-local:var(--c-blue);"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
   </div>
-  <p class="placeholder-note">Swap these three placeholders for your game/dev projects once they're ready.</p>
+  <p class="placeholder-note">Swap these placeholders for your real projects and games once they're ready.</p>
 </section>
 
 <!-- 3D ANIMATION -->
@@ -490,17 +494,6 @@
     </div>
   </div>
   <p class="placeholder-note">Replace each <code>.hex-media</code> gradient with <code>url('assets/your-render.jpg')</code> to show the real thumbnail for each piece.</p>
-</section>
-
-<!-- GAMES -->
-<section id="games" style="--accent-local:var(--c-blue);">
-  <div class="eyebrow">Play</div>
-  <h2>Games</h2>
-  <div class="hex-grid">
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
-  </div>
 </section>
 
 <!-- EDUCATION -->
