@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Name | Portfolio</title>
+<title>Béatriz Hernandez | Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -14,8 +14,10 @@
     --line:#3d1414;
     --text:#f5e9e9;
     --text-dim:#b89494;
-    --accent:#e63946;      /* bright red */
-    --accent-2:#ff6b6b;    /* coral, hover states */
+    --accent:#e63946;      /* bright red — brand color, used in hero */
+    --accent-2:#00e5cc;    /* intense turquoise — hover states everywhere */
+    --c-blue:#3fa9ff;      /* strong blue */
+    --c-yellow:#ffd93d;    /* strong yellow */
     --font-display:'Space Grotesk', sans-serif;
     --font-body:'Inter', sans-serif;
   }
@@ -31,7 +33,6 @@
     line-height:1.6;
   }
 
-  /* subtle grid texture */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -48,32 +49,32 @@
 
   h1,h2,h3{ font-family:var(--font-display); letter-spacing:-0.01em; }
 
-  section{ position:relative; z-index:1; padding:6rem 1.5rem; max-width:1100px; margin:0 auto; }
+  section{ position:relative; z-index:1; padding:6rem 1.5rem; max-width:1100px; margin:0 auto; scroll-margin-top:190px; }
 
   .eyebrow{
     font-family:var(--font-display);
     font-size:0.75rem;
     letter-spacing:0.18em;
     text-transform:uppercase;
-    color:var(--accent);
+    color:var(--accent-local, var(--accent));
     margin-bottom:0.75rem;
     display:flex; align-items:center; gap:0.6rem;
   }
   .eyebrow::before{
-    content:""; width:24px; height:1px; background:var(--accent);
+    content:""; width:24px; height:1px; background:var(--accent-local, var(--accent));
   }
 
   /* ---------- NAV ---------- */
   nav{
     position:sticky; top:0; z-index:10;
     display:flex; flex-direction:column;
-    background:rgba(18,5,5,0.9);
-    backdrop-filter:blur(8px);
+    background:#000000;
     border-bottom:1px solid var(--line);
   }
   .nav-links-row{
-    display:flex; justify-content:center; gap:2.5rem;
+    display:flex; justify-content:center; gap:2.2rem;
     padding:1.15rem 1.5rem;
+    flex-wrap:wrap;
   }
   nav a{
     font-family:var(--font-display);
@@ -83,43 +84,46 @@
     color:var(--text-dim);
     transition:color 0.2s ease;
   }
-  nav a:hover{ color:var(--accent); }
+  nav a:hover{ color:var(--accent-2); }
 
-  /* mini profile row: collapsed until you scroll past the hero */
   .nav-profile-row{
     max-height:0;
     opacity:0;
     overflow:hidden;
-    display:flex; justify-content:center; align-items:center; gap:0.85rem;
+    display:flex; justify-content:flex-start; align-items:center; gap:0.95rem;
     transition:max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
     padding:0 1.5rem;
     border-top:1px solid transparent;
   }
   nav.scrolled .nav-profile-row{
-    max-height:80px;
+    max-height:90px;
     opacity:1;
-    padding:0.85rem 1.5rem;
+    padding:1rem 1.5rem;
     border-top-color:var(--line);
   }
+  .nav-avatar-hex{
+    width:53px; height:53px;
+    flex-shrink:0;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--accent);
+    padding:2px;
+  }
+  .nav-avatar-hex-inner{
+    width:100%; height:100%;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    overflow:hidden;
+    background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+  }
   .nav-profile-row img{
-    width:46px; height:46px;
-    border-radius:50%;
+    width:100%; height:100%;
     object-fit:cover;
-    border:2px solid var(--accent);
     display:block;
   }
-  .nav-profile-row .nav-avatar-fallback{
-    width:46px; height:46px;
-    border-radius:50%;
-    border:2px solid var(--accent);
-    background:var(--surface);
-    display:none;
-  }
   .nav-profile-row.img-missing img{ display:none; }
-  .nav-profile-row.img-missing .nav-avatar-fallback{ display:block; }
   .nav-profile-row span{
     font-family:var(--font-display);
-    font-size:1.05rem;
+    font-size:1.2rem;
     font-weight:600;
     color:var(--text);
     white-space:nowrap;
@@ -135,23 +139,22 @@
   }
   .hero-text{ flex:1; min-width:280px; }
   .hero h1{
-    font-size:clamp(2.5rem, 6vw, 4.5rem);
-    line-height:1.05;
+    font-size:clamp(2.3rem, 5.5vw, 4rem);
+    line-height:1.08;
     margin-bottom:1.25rem;
   }
   .hero h1 span{ color:var(--accent); }
   .hero p{
-    max-width:560px;
+    max-width:580px;
     color:var(--text-dim);
     font-size:1.1rem;
     margin-bottom:2rem;
   }
 
-  /* -- circular photo frame -- */
   .hero-visual{
     position:relative;
-    width:260px;
-    height:260px;
+    width:250px;
+    height:289px;
     flex-shrink:0;
   }
   .avatar-glow{
@@ -160,24 +163,34 @@
     filter:blur(24px);
     z-index:0;
   }
-  .avatar-ring{
-    position:absolute; inset:-18px;
-    border:1px dashed var(--accent-2);
-    border-radius:50%;
-    opacity:0.6;
-    animation:spin 24s linear infinite;
+  .avatar-ring-svg{
+    position:absolute; inset:-20px;
+    width:calc(100% + 40px); height:calc(100% + 40px);
     z-index:1;
   }
+  .avatar-ring-svg polygon{
+    fill:none;
+    stroke-width:1.5;
+    stroke-dasharray:1.5 2.5;
+  }
+  .avatar-ring-svg .ring-red{ stroke:#a3101f; opacity:0.7; }
+  .avatar-ring-svg .ring-yellow{ stroke:var(--c-yellow); opacity:0.55; }
+  .avatar-ring-svg .ring-turquoise{ stroke:var(--accent-2); opacity:0.55; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
-  .avatar-frame{
+  .avatar-hex-border{
     position:relative; z-index:2;
     width:100%; height:100%;
-    border-radius:50%;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background:var(--accent);
+    padding:4px;
+    box-shadow:0 0 40px rgba(230,57,70,0.35);
+  }
+  .avatar-frame{
+    width:100%; height:100%;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     overflow:hidden;
-    border:3px solid var(--accent);
     background:var(--surface);
     display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 40px rgba(230,57,70,0.35);
   }
   .avatar-frame img{
     width:100%; height:100%;
@@ -200,7 +213,7 @@
     .hero p{ margin-left:auto; margin-right:auto; }
   }
 
-  .socials{ display:flex; gap:1.25rem; }
+  .socials{ display:flex; gap:1.25rem; flex-wrap:wrap; }
   .socials a{
     font-family:var(--font-display);
     font-size:0.85rem;
@@ -210,10 +223,12 @@
     color:var(--text-dim);
     transition:all 0.2s ease;
   }
-  .socials a:hover{
-    border-color:var(--accent-2);
-    color:var(--accent-2);
-  }
+  .socials a.social-yellow{ border-color:var(--c-yellow); color:var(--c-yellow); }
+  .socials a.social-turquoise{ border-color:var(--accent-2); color:var(--accent-2); }
+  .socials a.social-blue{ border-color:var(--c-blue); color:var(--c-blue); }
+  .socials a.social-yellow:hover{ background:rgba(255,217,61,0.12); }
+  .socials a.social-turquoise:hover{ background:rgba(0,229,204,0.12); }
+  .socials a.social-blue:hover{ background:rgba(63,169,255,0.12); }
 
   /* ---------- EXPERIENCE (timeline) ---------- */
   .timeline{ position:relative; padding-left:2rem; }
@@ -229,17 +244,23 @@
     position:absolute; left:-2rem; top:0.35rem;
     width:9px; height:9px; border-radius:50%;
     background:var(--bg);
-    border:2px solid var(--accent);
+    border:2px solid var(--accent-local, var(--accent));
   }
   .timeline-date{
     font-family:var(--font-display);
     font-size:0.75rem;
-    color:var(--accent);
+    color:var(--accent-local, var(--accent));
     letter-spacing:0.05em;
     margin-bottom:0.35rem;
   }
   .timeline-item h3{ font-size:1.15rem; margin-bottom:0.2rem; }
   .timeline-item .org{ color:var(--text-dim); font-size:0.9rem; margin-bottom:0.6rem; }
+  .timeline-item .proj-list{
+    color:var(--text-dim);
+    font-size:0.82rem;
+    margin-bottom:0.8rem;
+    line-height:1.7;
+  }
   .tags{ display:flex; flex-wrap:wrap; gap:0.4rem; }
   .tags span{
     font-size:0.72rem;
@@ -281,7 +302,7 @@
   .hex-inner .hex-icon{
     font-family:var(--font-display);
     font-size:0.7rem;
-    color:var(--accent);
+    color:var(--accent-local, var(--accent));
     letter-spacing:0.1em;
     text-transform:uppercase;
     margin-bottom:0.6rem;
@@ -303,7 +324,6 @@
     .hex-inner{ padding:1.2rem 0.9rem; }
   }
 
-  /* ---------- HEX with thumbnail image (3D Animation) ---------- */
   .hex.hex-media{
     background-size:cover;
     background-position:center;
@@ -325,6 +345,25 @@
     margin-top:1.25rem;
   }
 
+  /* ---------- EDUCATION LIST ---------- */
+  .edu-list{ margin-top:2.5rem; }
+  .edu-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:1rem;
+    padding:1.1rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .edu-item:last-child{ border-bottom:none; }
+  .edu-main h4{ font-size:1rem; margin-bottom:0.25rem; }
+  .edu-main .org{ color:var(--text-dim); font-size:0.85rem; }
+  .edu-year{
+    font-family:var(--font-display);
+    font-size:0.8rem;
+    color:var(--accent);
+    white-space:nowrap;
+    letter-spacing:0.03em;
+  }
+
   footer{
     text-align:center;
     padding:3rem 1.5rem;
@@ -341,13 +380,17 @@
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#animation3d">3D Animation</a>
-    <a href="#systems">Systems</a>
+    <a href="#games">Games</a>
+    <a href="#education">Education</a>
   </div>
   <div class="nav-profile-row" id="navProfile">
-    <img src="assets/your-photo.jpg" alt="Your photo"
-         onerror="this.style.display='none'; document.getElementById('navProfile').classList.add('img-missing')">
-    <div class="nav-avatar-fallback"></div>
-    <span>Your Name</span>
+    <div class="nav-avatar-hex">
+      <div class="nav-avatar-hex-inner">
+        <img src="assets/me_photo.jpg" alt="Béatriz Hernandez"
+             onerror="this.style.display='none'; document.getElementById('navProfile').classList.add('img-missing')">
+      </div>
+    </div>
+    <span>Béatriz Hernandez</span>
   </div>
 </nav>
 
@@ -355,96 +398,151 @@
 <section class="hero">
   <div class="hero-visual">
     <div class="avatar-glow"></div>
-    <div class="avatar-ring"></div>
-    <div class="avatar-frame" id="avatarFrame">
-      <img src="assets/your-photo.jpg" alt="Your photo"
-           onerror="this.style.display='none'; document.getElementById('avatarFrame').classList.add('img-missing')">
-      <div class="avatar-placeholder">Place your<br>your-photo.jpg<br>here</div>
+    <svg class="avatar-ring-svg" viewBox="0 0 110 127" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="ring-yellow" points="55,3 105,32 105,95 55,124 5,95 5,32" transform="rotate(20 55 63.5)"></polygon>
+      <polygon class="ring-turquoise" points="55,3 105,32 105,95 55,124 5,95 5,32" transform="rotate(-20 55 63.5)"></polygon>
+      <polygon class="ring-red" points="55,3 105,32 105,95 55,124 5,95 5,32"></polygon>
+    </svg>
+    <div class="avatar-hex-border">
+      <div class="avatar-frame" id="avatarFrame">
+        <img src="assets/me_photo.jpg" alt="Béatriz Hernandez"
+             onerror="this.style.display='none'; document.getElementById('avatarFrame').classList.add('img-missing')">
+        <div class="avatar-placeholder">Place your<br>your-photo.jpg<br>here</div>
+      </div>
     </div>
   </div>
   <div class="hero-text">
     <div class="eyebrow">Portfolio</div>
-    <h1>Hi, I'm <span>Your Name</span>.<br>Software Developer.</h1>
-    <p>Replace this text with a short description of who you are, what you specialize in, and what you're passionate about building.</p>
+    <h1>Hi, I'm <span>Béatriz</span>. QA Expert, 3D Animator &amp; Game Developer.</h1>
+    <p>I've spent years learning to see the small, hidden things: the bug behind the crash, the flaw behind the flow. Now I build worlds instead: crafting gameplay in Unity and Unreal, and breathing life into characters in Maya, one frame at a time.</p>
     <div class="socials">
-      <a href="#">GitHub</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Email</a>
+      <a class="social-turquoise" href="https://github.com/beatrizh01" target="_blank" rel="noopener">GitHub</a>
+      <a class="social-yellow" href="https://www.linkedin.com/in/beatriz01" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="social-blue" href="mailto:beatrizh01.m@gmail.com">Email</a>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" style="--accent-local:var(--c-blue);">
   <div class="eyebrow">Journey</div>
   <h2 style="margin-bottom:2.5rem;">Experience</h2>
   <div class="timeline">
     <div class="timeline-item">
-      <div class="timeline-date">Jan 2026 – Present</div>
-      <h3>Role or Position</h3>
-      <div class="org">Company · City</div>
-      <div class="tags"><span>Skill 1</span><span>Skill 2</span><span>Skill 3</span></div>
+      <div class="timeline-date">2026</div>
+      <h3>Gameplay Developer Intern</h3>
+      <div class="org">Super Splendide</div>
+      <p class="proj-list">Internship building gameplay mechanics and systems as part of the video game programming program.</p>
+      <div class="tags"><span>Unity</span><span>C#</span><span>Gameplay Programming</span></div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-date">2024 – 2025</div>
-      <h3>Another Role or Project</h3>
-      <div class="org">Institution · City</div>
-      <div class="tags"><span>Skill 1</span><span>Skill 2</span></div>
+      <div class="timeline-date">2024</div>
+      <h3>3D Animator Intern</h3>
+      <div class="org">Collège de Bois-de-Boulogne, Montreal</div>
+      <p class="proj-list">Internship animating and rigging characters as part of the 3D animation program.</p>
+      <div class="tags"><span>Maya</span><span>Rigging</span><span>Character Animation</span></div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-date">2021 – 2024</div>
-      <h3>Education</h3>
-      <div class="org">University / College</div>
-      <div class="tags"><span>Field of study</span></div>
+      <div class="timeline-date">2010 – 2021</div>
+      <h3>Software QA Test Expert</h3>
+      <div class="org">Logic Studio S.A.</div>
+      <p class="proj-list">
+        Integration, functional, regression and performance testing, with a strong understanding of the SDLC and business requirements analysis. Built test plans, scripts, traceability matrices, and SQL queries.<br>
+        Key projects: CHUBB — insurance management (2015–2021) · ACP Panama Canal Authority (2012–2014) · BANESCO banking systems (2013) · Ministry of Economy &amp; Finance (2011–2012) · SPRI, PRONTOCOMPRA, SASE, PRONTOFACTURA (2010)
+      </p>
+      <div class="tags"><span>Functional Testing</span><span>Regression</span><span>Performance</span><span>Test Plans</span><span>SQL</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2007 – 2009</div>
+      <h3>Software Analyst Programmer</h3>
+      <div class="org">SACSA — Sistemas Comerciales Aplicados S.A.</div>
+      <p class="proj-list">Software analysis and requirements gathering, programming of specific modules, and testing to ensure software quality and catch errors early.</p>
+      <div class="tags"><span>Requirements Analysis</span><span>Module Development</span><span>QA Testing</span></div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" style="--accent-local:var(--c-yellow);">
   <div class="eyebrow">Work</div>
   <h2>Projects</h2>
   <div class="hex-grid">
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
     <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">Project</div><h4>Project Name</h4><p>Stack / tools used</p></div></div>
   </div>
+  <p class="placeholder-note">Swap these three placeholders for your game/dev projects once they're ready.</p>
 </section>
 
 <!-- 3D ANIMATION -->
-<section id="animation3d">
+<section id="animation3d" style="--accent-local:var(--accent-2);">
   <div class="eyebrow">Reel</div>
   <h2>3D Animation</h2>
   <div class="hex-grid">
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #3a1010, #7a2020);">
-      <div class="hex-inner"><div class="hex-icon">Piece 01</div><h4>Piece Name</h4><p>Software / technique used</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 01</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
     </div>
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #2a0d0d, #6a1a1a);">
-      <div class="hex-inner"><div class="hex-icon">Piece 02</div><h4>Piece Name</h4><p>Software / technique used</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 02</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
     </div>
     <div class="hex hex-media" style="background-image:linear-gradient(to top, rgba(18,5,5,0.92), rgba(18,5,5,0.2) 55%, transparent), linear-gradient(135deg, #331414, #8a2a2a);">
-      <div class="hex-inner"><div class="hex-icon">Piece 03</div><h4>Piece Name</h4><p>Software / technique used</p></div>
+      <div class="hex-inner"><div class="hex-icon">Piece 03</div><h4>Piece Name</h4><p>Maya / rigging / technique used</p></div>
     </div>
   </div>
-  <p class="placeholder-note">Replace each <code>.hex-media</code> gradient with <code>url('your-image.jpg')</code> in the <code>style</code> attribute to show the real thumbnail for each render.</p>
+  <p class="placeholder-note">Replace each <code>.hex-media</code> gradient with <code>url('assets/your-render.jpg')</code> to show the real thumbnail for each piece.</p>
 </section>
 
-<!-- SYSTEMS -->
-<section id="systems">
-  <div class="eyebrow">Engineering</div>
-  <h2>Systems</h2>
+<!-- GAMES -->
+<section id="games" style="--accent-local:var(--c-blue);">
+  <div class="eyebrow">Play</div>
+  <h2>Games</h2>
   <div class="hex-grid">
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
-    <div class="hex"><div class="hex-inner"><div class="hex-icon">System</div><h4>System Name</h4><p>Language / engine / technique</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
+    <div class="hex"><div class="hex-inner"><div class="hex-icon">Game</div><h4>Game Title</h4><p>Engine / role</p></div></div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="--accent-local:var(--c-yellow);">
+  <div class="eyebrow">Background</div>
+  <h2>Education &amp; Certifications</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">2025 – 2026</div>
+      <h3>Video Game Programming</h3>
+      <div class="org">Collège de Bois-de-Boulogne</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2023 – 2024</div>
+      <h3>3D Animation</h3>
+      <div class="org">Collège de Bois-de-Boulogne</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2022</div>
+      <h3>Francisation (French Immersion)</h3>
+      <div class="org">Cégep Saint-Jean-sur-Richelieu</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2019</div>
+      <h3>Certificate of Proficiency, English for Professional Communication</h3>
+      <div class="org">McGill University</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2012</div>
+      <h3>ISTQB Certified Tester</h3>
+      <div class="org">International Software Testing Qualifications Board</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2010</div>
+      <h3>B.Eng. Computer Systems Engineering</h3>
+      <div class="org">Universidad Tecnológica de Panamá</div>
+    </div>
   </div>
 </section>
 
 <footer>
-  © 2026 Your Name — hand-built by combining two open-source templates.
+  © 2026 Béatriz Hernandez — Montreal, QC · beatrizh01.m@gmail.com
 </footer>
 
 <script>
